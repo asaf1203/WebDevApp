@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 700px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00ffff;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error {
+            color: #ff0080;
+            text-shadow: 0 0 10px #ff0080;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        input {
+            display: block;
+            margin: 8px 0;
+            padding: 12px;
+            width: 100%;
+            border: 2px solid #00ffff;
+            border-radius: 4px;
+            background-color: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            box-shadow: 0 0 20px #00ffff;
+            transform: scale(1.02);
+        }
+
+        button {
+            padding: 12px 20px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff0080, #8000ff);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #ff0080;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px #ff0080;
+        }
+
+        .box {
+            border: 2px solid #00ffff;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 30px #00ffff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 30px #00ffff;
+            }
+
+            to {
+                box-shadow: 0 0 40px #00ffff, 0 0 50px #00ffff;
+            }
+        }
+
+        h2 {
+            color: #00ffff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px #00ffff;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px #00ffff;
+            }
+
+            to {
+                text-shadow: 0 0 30px #00ffff, 0 0 40px #00ffff;
+            }
+        }
+
+        a {
+            color: #ff0080;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            text-shadow: 0 0 10px #ff0080;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2>Login</h2>
+
+        <% if (error) { %>
+            <p class="error">
+                <%= error %>
+            </p>
+            <% } %>
+
+                <form method="POST" action="/login">
+                    <input name="email" placeholder="Email" type="email" required />
+                    <input name="password" placeholder="Password" type="password" required />
+                    <button type="submit">Login</button>
+                </form>
+
+                <p>No account? <a href="/register">Register</a></p>
+    </div>
+</body>
+
+</html>
