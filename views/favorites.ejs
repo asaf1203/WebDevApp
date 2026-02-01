@@ -86,6 +86,11 @@
             color: #999;
             margin-right: 10px;
             font-size: 20px;
+            transition: color 0.2s;
+        }
+
+        .drag-handle:hover {
+            color: #667eea;
         }
 
         .drag-handle:active {
@@ -94,6 +99,16 @@
 
         .dragging {
             opacity: 0.5;
+            transform: rotate(2deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .favorite-item {
+            transition: all 0.2s ease;
+        }
+
+        .favorite-item:hover .drag-handle {
+            color: #667eea;
         }
 
         .navbar-custom {
@@ -201,6 +216,13 @@
                                         <h4 class="card-title mb-3">
                                             <i class="bi bi-heart-fill text-danger"></i> My Favorites (<%= favorites.length %>)
                                         </h4>
+                                        <% if (favorites.length> 0) { %>
+                                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                                <i class="bi bi-info-circle"></i> <strong>Tip:</strong> Drag the <i
+                                                    class="bi bi-grip-vertical"></i> icon to reorder your favorites!
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            </div>
+                                            <% } %>
 
                                         <% if (favorites.length===0) { %>
                                             <div class="text-center py-5 text-muted">
@@ -302,6 +324,16 @@
             const items = document.querySelectorAll('.favorite-item');
             const orderedIds = Array.from(items).map(item => parseInt(item.dataset.id));
 
+            // Show a subtle feedback
+            const saveIndicator = document.createElement('div');
+            saveIndicator.className = 'position-fixed top-0 end-0 m-3';
+            saveIndicator.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check-circle"></i> Order saved!</div>';
+            document.body.appendChild(saveIndicator);
+
+            setTimeout(() => {
+                saveIndicator.remove();
+            }, 2000);
+
             fetch('/favorites/reorder', {
                 method: 'POST',
                 headers: {
@@ -311,9 +343,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        console.log('Order saved successfully');
-                    } else {
+                    if (!data.success) {
                         alert('Failed to save order: ' + data.message);
                         location.reload();
                     }
