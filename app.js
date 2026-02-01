@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 const express = require("express");
 const path = require("path");
 const sessionMiddleware = require("./config/session");
 const authRoutes = require("./routes/authRoutes");
+const favoriteRoutes = require("./routes/favoriteRoutes");
 const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
@@ -12,6 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // body parsing
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // sessions
 app.use(sessionMiddleware);
@@ -24,6 +28,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use(authRoutes);
+app.use(favoriteRoutes);
 
 // protected home
 app.get("/", requireAuth, (req, res) => {

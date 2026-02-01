@@ -122,6 +122,12 @@
                 <%= user.fullName %>
             </b> (<%= user.email %>)</p>
 
+        <div style="margin: 20px 0;">
+            <a href="/favorites" style="display: inline-block; padding: 12px 20px; background: linear-gradient(45deg, #00ffff, #00aaff); color: #000; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 10px #00ffff;">
+                <span style="font-size: 18px;">🎥</span> My YouTube Favorites
+            </a>
+        </div>
+
         <form method="POST" action="/logout">
             <button type="submit">Logout</button>
         </form>
